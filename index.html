@@ -72,20 +72,20 @@
         }
         .heart {
             position: absolute;
-            font-size: 1.2em to 2em;
+            font-size: 1.2em;
             color: #ff69b4;
             opacity: 0.8;
-            animation: floatHeart 6s infinite, changeSize 4s infinite;
+            animation: floatHeart 6s infinite linear, changeSize 4s infinite;
         }
         @keyframes floatHeart {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0.8; }
-            50% { transform: translateY(50vh) rotate(45deg); opacity: 0.5; }
-            100% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
         }
         @keyframes changeSize {
-            0% { font-size: 1.2em; }
+            0%, 100% { font-size: 1.2em; }
             50% { font-size: 2em; }
-            100% { font-size: 1.2em; }
         }
         .music-instruction {
             font-size: 1em;
@@ -98,7 +98,7 @@
 <body onload="updateCounter()">
     <div class="hearts"></div>
     <h1>Sefo ♥ Ezgi</h1>
-    <div class="counter" id="counter"></div>
+    <div class="counter" id="counter">Yükleniyor...</div>
     <div class="text">
         "Seninle tanıştığımdan beri hayat denen şeyi yeni yaşamaya başladım sen benim hayatımın ta kendisi oldun uyuyorum rüyalarımdasın uyanıyorum aklımdasın Kalbimi kilitledim ve anahtarını ömür boyu sana teslim ettim Ezgim 🫶🏻💗"
     </div>
@@ -135,7 +135,6 @@
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-            // Sayaç görünür şekilde ekrana yazılıyor
             document.getElementById('counter').innerHTML = `
                 ${days} Gün<br>
                 ${hours} Saat<br>
@@ -144,16 +143,20 @@
                 💞 Sefo & Ezgi 💞
             `;
 
-            setTimeout(updateCounter, 1000); // Her saniye güncelle
+            setTimeout(updateCounter, 1000);
         }
 
-        createHearts();
+        // Sayfa yüklendiğinde her şeyi başlat
+        window.addEventListener('load', function() {
+            createHearts();
+            updateCounter();
+        });
 
-        // MP3 ile müzik çalma (telifsiz romantik müzik)
+        // MP3 ile müzik çalma
         let audio;
         function initAudio() {
-            audio = new Audio('https://www.freesound.org/data/previews/483/483984_10398737-lq.mp3'); // Telifsiz romantik müzik
-            audio.loop = true; // Döngüde çalsın
+            audio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'); // Telifsiz müzik (hacker tarzı, değiştirilebilir)
+            audio.loop = true;
             document.body.addEventListener('click', playAudio, { once: true });
         }
 
@@ -161,13 +164,11 @@
             audio.play().then(() => {
                 console.log('Müzik başladı');
             }).catch(error => {
-                console.log('Müzik başlatılamadı:', error);
-                alert('Ses çalmak için tarayıcı izni gerekebilir!');
+                console.log('Müzik hatası:', error);
             });
         }
 
-        // Sayfa yüklendiğinde audio'yu hazırla
-        window.onload = initAudio;
+        initAudio();
     </script>
 </body>
 </html>
