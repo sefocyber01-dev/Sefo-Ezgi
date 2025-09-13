@@ -41,6 +41,7 @@
             border-radius: 15px;
             display: inline-block;
             animation: bounce 1.5s infinite;
+            margin-top: 20px;
         }
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
@@ -119,7 +120,7 @@
         }
 
         function updateCounter() {
-            const startDate = new Date('2025-09-14T00:00:00+03:00'); // 14 Eylül 2025
+            const startDate = new Date('2025-09-14T00:00:00+03:00'); // 14 Eylül 2025, gece yarısı
             const now = new Date();
             const diff = now - startDate;
 
@@ -134,6 +135,7 @@
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
+            // Sayaç görünür şekilde ekrana yazılıyor
             document.getElementById('counter').innerHTML = `
                 ${days} Gün<br>
                 ${hours} Saat<br>
@@ -142,7 +144,7 @@
                 💞 Sefo & Ezgi 💞
             `;
 
-            setTimeout(updateCounter, 1000);
+            setTimeout(updateCounter, 1000); // Her saniye güncelle
         }
 
         createHearts();
