@@ -10,9 +10,9 @@
             text-align: center;
             margin: 0;
             padding: 20px;
-            overflow: hidden;
+            overflow-y: auto; /* Kaydırma aktif */
             background: linear-gradient(135deg, #ff1493, #8a2be2, #ff69b4);
-            height: 100vh;
+            min-height: 100vh;
             animation: bgPulse 10s infinite alternate;
         }
         @keyframes bgPulse {
@@ -86,12 +86,6 @@
             50% { font-size: 2em; }
             100% { font-size: 1.2em; }
         }
-        .music-instruction {
-            font-size: 1em;
-            color: #ffd700;
-            margin-top: 15px;
-            text-shadow: 0 0 5px #fff;
-        }
     </style>
 </head>
 <body>
@@ -100,9 +94,6 @@
     <div class="counter" id="counter"></div>
     <div class="text">
         "Seninle tanıştığımdan beri hayat denen şeyi yeni yaşamaya başladım sen benim hayatımın ta kendisi oldun uyuyorum rüyalarımdasın uyanıyorum aklımdasın Kalbimi kilitledim ve anahtarını ömür boyu sana teslim ettim Ezgim 🫶🏻💗"
-    </div>
-    <div class="music-instruction">
-        Aşk müziği çalmak için sayfaya tıkla 💕 (app'lerde izin gerekebilir)
     </div>
 
     <script>
@@ -119,7 +110,7 @@
         }
 
         function updateCounter() {
-            const startDate = new Date('2025-05-14T00:00:00+03:00'); // 14 Mayıs 2025
+            const startDate = new Date('2025-09-14T00:00:00+03:00'); // 14 Eylül 2025
             const now = new Date();
             const diff = now - startDate;
 
@@ -146,26 +137,7 @@
         }
 
         createHearts();
-
-        // MP3 ile müzik çalma (telifsiz romantik müzik)
-        let audio;
-        function initAudio() {
-            audio = new Audio('https://www.freesound.org/data/previews/483/483984_10398737-lq.mp3'); 
-            audio.loop = true;
-            document.body.addEventListener('click', playAudio, { once: true });
-        }
-
-        function playAudio() {
-            audio.play().catch(error => {
-                console.log('Müzik başlatılamadı:', error);
-            });
-        }
-
-        // Burayı düzelttim ✅
-        window.onload = function() {
-            initAudio();
-            updateCounter();
-        };
+        updateCounter();
     </script>
 </body>
 </html>
