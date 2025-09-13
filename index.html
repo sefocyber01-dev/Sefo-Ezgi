@@ -95,7 +95,7 @@
         }
     </style>
 </head>
-<body onload="updateCounter()">
+<body>
     <div class="hearts"></div>
     <h1>Sefo ♥ Ezgi</h1>
     <div class="counter" id="counter">Yükleniyor...</div>
@@ -107,6 +107,7 @@
     </div>
 
     <script>
+        // Kalpler oluştur
         function createHearts() {
             const heartsContainer = document.querySelector('.hearts');
             for (let i = 0; i < 30; i++) {
@@ -119,6 +120,7 @@
             }
         }
 
+        // Sayaç güncelle
         function updateCounter() {
             const startDate = new Date('2025-09-14T00:00:00+03:00'); // 14 Eylül 2025, gece yarısı
             const now = new Date();
@@ -146,29 +148,18 @@
             setTimeout(updateCounter, 1000);
         }
 
-        // Sayfa yüklendiğinde her şeyi başlat
+        // Sayfa yüklendiğinde başlat
         window.addEventListener('load', function() {
             createHearts();
             updateCounter();
         });
 
-        // MP3 ile müzik çalma
-        let audio;
-        function initAudio() {
-            audio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'); // Telifsiz müzik (hacker tarzı, değiştirilebilir)
-            audio.loop = true;
-            document.body.addEventListener('click', playAudio, { once: true });
-        }
-
-        function playAudio() {
-            audio.play().then(() => {
-                console.log('Müzik başladı');
-            }).catch(error => {
-                console.log('Müzik hatası:', error);
-            });
-        }
-
-        initAudio();
+        // Müzik
+        let audio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
+        audio.loop = true;
+        document.body.addEventListener('click', function() {
+            audio.play().catch(error => console.log('Müzik hatası:', error));
+        }, { once: true });
     </script>
 </body>
 </html>
