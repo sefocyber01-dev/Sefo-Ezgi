@@ -119,12 +119,12 @@
         }
 
         function updateCounter() {
-            const startDate = new Date('2025-09-13T00:00:00+03:00'); // 13 Eylül 2025
+            const startDate = new Date('2025-09-14T00:00:00+03:00'); // 14 Eylül 2025
             const now = new Date();
             const diff = now - startDate;
 
             if (diff < 0) {
-                document.getElementById('counter').innerHTML = "Henüz zaman başlamadı! 😅";
+                document.getElementById('counter').innerHTML = "Aşkımız henüz başlamadı! 💕 Bekle...";
                 setTimeout(updateCounter, 1000);
                 return;
             }
