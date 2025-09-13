@@ -41,7 +41,6 @@
             border-radius: 15px;
             display: inline-block;
             animation: bounce 1.5s infinite;
-            margin-top: 20px;
         }
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
@@ -72,20 +71,20 @@
         }
         .heart {
             position: absolute;
-            font-size: 1.2em;
+            font-size: 1.2em to 2em;
             color: #ff69b4;
             opacity: 0.8;
-            animation: floatHeart 6s infinite linear, changeSize 4s infinite;
+            animation: floatHeart 6s infinite, changeSize 4s infinite;
         }
         @keyframes floatHeart {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0.8; }
+            50% { transform: translateY(50vh) rotate(45deg); opacity: 0.5; }
+            100% { transform: translateY(0) rotate(0deg); opacity: 0; }
         }
         @keyframes changeSize {
-            0%, 100% { font-size: 1.2em; }
+            0% { font-size: 1.2em; }
             50% { font-size: 2em; }
+            100% { font-size: 1.2em; }
         }
         .music-instruction {
             font-size: 1em;
@@ -98,7 +97,7 @@
 <body>
     <div class="hearts"></div>
     <h1>Sefo ♥ Ezgi</h1>
-    <div class="counter" id="counter">Yükleniyor...</div>
+    <div class="counter" id="counter"></div>
     <div class="text">
         "Seninle tanıştığımdan beri hayat denen şeyi yeni yaşamaya başladım sen benim hayatımın ta kendisi oldun uyuyorum rüyalarımdasın uyanıyorum aklımdasın Kalbimi kilitledim ve anahtarını ömür boyu sana teslim ettim Ezgim 🫶🏻💗"
     </div>
@@ -107,7 +106,6 @@
     </div>
 
     <script>
-        // Kalpler oluştur
         function createHearts() {
             const heartsContainer = document.querySelector('.hearts');
             for (let i = 0; i < 30; i++) {
@@ -120,14 +118,13 @@
             }
         }
 
-        // Sayaç güncelle
         function updateCounter() {
-            const startDate = new Date('2025-09-14T00:00:00+03:00'); // 14 Eylül 2025, gece yarısı
+            const startDate = new Date('2025-05-14T00:00:00+03:00'); // 14 Mayıs 2025
             const now = new Date();
             const diff = now - startDate;
 
             if (diff < 0) {
-                document.getElementById('counter').innerHTML = "Aşkımız henüz başlamadı! 💕 Bekle...";
+                document.getElementById('counter').innerHTML = "Henüz zaman başlamadı! 😅";
                 setTimeout(updateCounter, 1000);
                 return;
             }
@@ -148,18 +145,27 @@
             setTimeout(updateCounter, 1000);
         }
 
-        // Sayfa yüklendiğinde başlat
-        window.addEventListener('load', function() {
-            createHearts();
-            updateCounter();
-        });
+        createHearts();
 
-        // Müzik
-        let audio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
-        audio.loop = true;
-        document.body.addEventListener('click', function() {
-            audio.play().catch(error => console.log('Müzik hatası:', error));
-        }, { once: true });
+        // MP3 ile müzik çalma (telifsiz romantik müzik)
+        let audio;
+        function initAudio() {
+            audio = new Audio('https://www.freesound.org/data/previews/483/483984_10398737-lq.mp3'); 
+            audio.loop = true;
+            document.body.addEventListener('click', playAudio, { once: true });
+        }
+
+        function playAudio() {
+            audio.play().catch(error => {
+                console.log('Müzik başlatılamadı:', error);
+            });
+        }
+
+        // Burayı düzelttim ✅
+        window.onload = function() {
+            initAudio();
+            updateCounter();
+        };
     </script>
 </body>
 </html>
